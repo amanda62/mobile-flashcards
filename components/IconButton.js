@@ -1,0 +1,25 @@
+import React from "react";
+import { StyleSheet, TouchableOpacity, Text, View } from "react-native";
+
+export default function IconButton({
+  children = null,
+  onPress = null,
+  text = "",
+  color = "black",
+  style
+}) {
+  return (
+    <View style={[styles.container, style]}>
+      <TouchableOpacity onPress={onPress}>
+        {children}
+        <Text style={{ color, textAlign: "center" }}>{text}</Text>
+      </TouchableOpacity>
+    </View>
+  );
+}
+
+const styles = StyleSheet.create({
+  container: {
+    margin: 10
+  }
+});
