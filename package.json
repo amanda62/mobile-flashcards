@@ -9,6 +9,11 @@
     "test": "jest --watchAll",
     "lint": "eslint --fix ."
   },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
   "eslintConfig": {
     "extends": [
       "@react-native-community",
