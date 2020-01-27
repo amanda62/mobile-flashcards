@@ -1,15 +1,16 @@
-import React, { useEffect } from "react";
+// import React, { useEffect } from "react";
+import React from "react";
 import { View } from "react-native";
 import Typography from "./Typography";
 import IconButton from "./IconButton";
 import { theme } from "../constants/theme";
 import { Entypo } from "@expo/vector-icons";
-import { _setLastQuizTime } from "../_DATA";
+// import { _setLastQuizTime } from "../_DATA";
 
 export default function QuizCompleted({ score, styles, restart }) {
-  useEffect(() => {
-    _setLastQuizTime();
-  }, []);
+  // useEffect(() => {
+  //   _setLastQuizTime();
+  // }, []);
 
   return (
     <View style={styles.container}>

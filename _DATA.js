@@ -1,108 +1,50 @@
-// import { AsyncStorage } from "react-native";
-
-// storeData = async () => {
-//   try {
-//     await AsyncStorage.setItem("@storage_Key", "stored value");
-//   } catch (e) {
-//     // saving error
-//   }
-// };
-
-// getData = async () => {
-//   try {
-//     const value = await AsyncStorage.getItem("@storage_Key");
-//     if (value !== null) {
-//       // value previously stored
-//     }
-//   } catch (e) {
-//     // error reading value
-//   }
-// };
+import StorageService from "./StorageService";
 
 // let user = null;
-let lastQuizTime = null;
-let decks = [
-  {
-    title: "React",
-    color: "#CBC5EA",
-    questions: [
-      {
-        question: "What is React?",
-        answer: "A library for managing user interfaces"
-      },
-      {
-        question: "Where do you make Ajax requests in React?",
-        answer: "The componentDidMount lifecycle event"
-      }
-    ]
-  },
-  {
-    title: "JavaScript",
-    color: "#96616B",
-    questions: [
-      {
-        question: "What is a closure?",
-        answer:
-          "The combination of a function and the lexical environment within which that function was declared."
-      },
-      {
-        question: ".find() vs. .some()",
-        answer: `.find() returns the first item found. 
-            .some() returns a boolean.  
-            both expect a callback(x => x === y ) `
-      }
-    ]
-  }
-];
+// let lastQuizTime = null;
+// let decks = null;
 
-export function _setLastQuizTime() {
-  return new Promise((res, rej) => {
-    setTimeout(() => {
-      lastQuizTime = new Date();
-      res(); //? does this need a response?
-    }, 100);
-  });
+// export function _setLastQuizTime() {
+//   return new Promise((res, rej) => {
+//     setTimeout(() => {
+//       lastQuizTime = new Date();
+//       res(); //? does this need a response?
+//     }, 100);
+//   });
+// }
+
+//allows us to use Timeout in a synchronous way with async/await
+const delay = ms => new Promise(resolve => setTimeout(resolve, ms));
+
+export async function _getDecks() {
+  await delay(200);
+  const decks = await StorageService.getDecks();
+  return decks;
 }
 
-export function _getDecks() {
-  return new Promise((res, rej) => {
-    setTimeout(() => res([...decks]), 200);
-  });
-}
-export function _getDeck(id) {
-  return new Promise((res, rej) =>
-    setTimeout(() => {
-      const deck = decks.find(_deck => _deck.title === id);
-      deck ? res({ ...deck }) : rej(new Error("Deck not found"));
-    }, 100)
-  );
+export async function _getDeck(title) {
+  await delay(200);
+  const decks = await StorageService.getDecks();
+  const targetDeck = (decks || []).find(deck => deck.title === title);
+  return targetDeck;
 }
 
-export function _createDeck(deck) {
-  return new Promise((res, rej) => {
-    const newDeck = {
-      ...deck,
-      questions: []
-    };
-    setTimeout(() => {
-      decks = [...decks, newDeck];
-      res({ ...newDeck }); //? does this need a response?
-    }, 100);
-  });
+export async function _createDeck(deckDetails) {
+  await delay(100);
+  const decks = await StorageService.getDecks();
+  await StorageService.setDecks([...decks, { ...deckDetails, questions: [] }]);
 }
 
 //card = {question: "", answer: ""}
-export function _addCardToDeck(title, card) {
-  return new Promise((res, rej) => {
-    setTimeout(() => {
-      decks = decks.map(deck =>
-        deck.title === title
-          ? { ...deck, questions: [...deck.questions, card] }
-          : deck
-      );
-      res({ ...decks.find(deck => deck.title === title) });
-    }, 100);
-  });
+export async function _addCardToDeck(title, card) {
+  await delay(100);
+  const decks = await StorageService.getDecks();
+  const updatedDecks = decks.map(deck =>
+    deck.title === title
+      ? { ...deck, questions: [...deck.questions, card] }
+      : deck
+  );
+  await StorageService.setDecks(updatedDecks);
 }
 
 // export function _deleteDeck(title) {

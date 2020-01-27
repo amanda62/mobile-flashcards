@@ -52,8 +52,6 @@ export const theme = {
     question: darkImperialBlue,
     answer: paleCarmine,
     colorOptions: {
-      dodgerBlue,
-      paleCarmine,
       sinopiaOrange,
       kanaduSage,
       wageningenGreen,

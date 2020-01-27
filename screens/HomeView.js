@@ -45,7 +45,7 @@ export default function HomeScreen({ navigation }) {
           onPress={() => goToDeck(deck.title)}
           style={{ backgroundColor: deck.color }}
         >
-          <Text style={styles.text}>{deck.title}</Text>
+          <Typography variant="deckTitle">{deck.title}</Typography>
         </ZoomOpacity>
       ))}
     </View>
@@ -57,9 +57,5 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "center"
-  },
-  topOption: {},
-  text: {
-    textAlign: "center"
   }
 });

@@ -35,7 +35,7 @@ export default function CreateCardView({ navigation }) {
       <Typography>Create Card</Typography>
 
       {["question", "answer"].map(cardSide => (
-        <View style={styles.card}>
+        <View style={styles.card} key={cardSide}>
           <TextInput
             onChangeText={handleChange(cardSide)}
             value={newCard[cardSide]}

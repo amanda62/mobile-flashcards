@@ -17,5 +17,10 @@ const styles = StyleSheet.create({
   },
   subtitle: {
     fontSize: theme.spacing(2)
+  },
+  deckTitle: {
+    fontSize: theme.spacing(2),
+    textAlign: "center",
+    fontWeight: 500
   }
 });

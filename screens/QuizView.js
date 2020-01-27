@@ -37,7 +37,7 @@ export default function QuizView({ navigation }) {
       >
         Quiz
       </AppBar>
-      <Typography>Quiz View</Typography>
+      <Typography>{deck.title}</Typography>
 
       {!deck.questions.length && (
         <View>
