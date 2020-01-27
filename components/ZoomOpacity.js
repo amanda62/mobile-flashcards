@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Animated, StyleSheet, TouchableOpacity } from "react-native";
-import { theme } from "../constants/Colors";
+import { theme } from "../constants/theme";
 
 export default function DeckWrapper({ children, onPress, style }) {
   const [animating, setAnimating] = useState(false);
@@ -39,10 +39,9 @@ const styles = StyleSheet.create({
     // textAlign: "center",
     justifyContent: "center",
     boxShadow: "0 4px 8px 0 rgba(0, 0, 0.2, 0.5)",
-    // transition: "0.3s",
     borderRadius: "5px",
     height: "50px",
-    backgroundColor: theme.palette.beige
+    backgroundColor: theme.palette.colorOptions.blanchedAlmond
     // `${theme.randomColor()}`
   }
 });

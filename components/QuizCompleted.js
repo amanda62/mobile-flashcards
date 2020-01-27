@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import { View } from "react-native";
 import Typography from "./Typography";
 import IconButton from "./IconButton";
-import { theme } from "../constants/Colors";
+import { theme } from "../constants/theme";
 import { Entypo } from "@expo/vector-icons";
 import { _setLastQuizTime } from "../_DATA";
 
@@ -24,10 +24,10 @@ export default function QuizCompleted({ score, styles, restart }) {
         <IconButton
           text="Restart"
           onPress={restart}
-          color={theme.primary}
+          color={theme.palette.primary}
           style={styles.button}
         >
-          <Entypo name="new" color={theme.primary} size={75} />
+          <Entypo name="new" color={theme.palette.primary} size={75} />
         </IconButton>
       </View>
     </View>

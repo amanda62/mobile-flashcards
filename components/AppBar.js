@@ -1,7 +1,7 @@
 import React from "react";
 import { StyleSheet, TouchableOpacity, Text, View } from "react-native";
 import { AntDesign } from "@expo/vector-icons";
-import { theme } from "../constants/Colors";
+import { theme } from "../constants/theme";
 
 export default function AppBar({ children, navigate, back = true }) {
   return (
@@ -21,10 +21,8 @@ export default function AppBar({ children, navigate, back = true }) {
 const styles = StyleSheet.create({
   bar: {
     flexDirection: "row",
-    backgroundColor: theme.appbar,
-    height: 40,
-    marginBottom: 5
-    // boxShadow: "0 4px 2px -2px rgba(0, 0, 0.2, 0.5)"
+    backgroundColor: theme.palette.appbar,
+    height: theme.spacing(5)
   },
   backArrow: {
     justifyContent: "center",

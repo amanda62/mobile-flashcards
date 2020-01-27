@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import { TouchableOpacity, View, StyleSheet } from "react-native";
-import { theme } from "../constants/Colors";
+import { TouchableOpacity, View, StyleSheet, ScrollView } from "react-native";
+import { theme } from "../constants/theme";
 
 export default function ColorPicker({
   value: defaultValue = theme.randomColor(),
@@ -12,15 +12,16 @@ export default function ColorPicker({
     onChange(color);
   };
 
-  const size = 44;
-  const border = 3;
-  const margin = 3;
+  // const [colors] = theme.palette.randomColor()
+  const size = theme.spacing(5.5);
+  const border = theme.spacing(0.5);
+  const margin = theme.spacing(0.5);
   const innerSize = size - 2 * border - 2 * margin;
 
   return (
-    <View style={styles.container}>
-      {//TODO: scroll sideways
-      Object.values(theme.palette).map(color => (
+    <ScrollView horizontal style={styles.container}>
+      {//TODO: scrollview sideways
+      Object.values(theme.palette.colorOptions).map(color => (
         <TouchableOpacity
           onPress={() => handlePress(color)}
           key={color}
@@ -31,7 +32,7 @@ export default function ColorPicker({
             marginHorizontal: 3,
             borderRadius: 30,
             borderWidth: border,
-            borderColor: value === color ? theme.primary : "white"
+            borderColor: value === color ? theme.palette.primary : "white"
           }}
         >
           <View
@@ -46,14 +47,15 @@ export default function ColorPicker({
           />
         </TouchableOpacity>
       ))}
-    </View>
+    </ScrollView>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
     flexDirection: "row",
-    marginVertical: 15,
-    alignSelf: "center"
+    marginVertical: theme.spacing(2),
+    alignSelf: "center",
+    width: "100%"
   }
 });

@@ -1,35 +1,20 @@
-import * as WebBrowser from "expo-web-browser";
-import React, { useEffect, useState } from "react";
-import {
-  StyleSheet,
-  TouchableOpacity,
-  Text,
-  View,
-  Switch,
-  Button
-} from "react-native";
-import { _getDeck } from "../_DATA";
+import React from "react";
+import { StyleSheet, View } from "react-native";
 import Typography from "../components/Typography";
 import Card from "../components/Card";
 import AppBar from "../components/AppBar";
 import IconButton from "../components/IconButton";
 import { AntDesign } from "@expo/vector-icons";
-import { theme } from "../constants/Colors";
+import { theme } from "../constants/theme";
+import { useDeck } from "../hooks";
 
 export default function DeckView({ navigation }) {
-  const [deck, setDeck] = useState();
+  const deck = useDeck(navigation);
 
-  useEffect(() => {
-    (async () => {
-      const title = navigation.getParam("title");
-      const _deck = await _getDeck(title);
-      setDeck(_deck);
-    })();
-  }, [navigation]);
   if (!deck) return null;
 
   return (
-    <View style={styles.container}>
+    <View style={{ flex: 1, backgroundColor: deck.color }}>
       <AppBar navigate={() => navigation.navigate("Main")}>Deck View</AppBar>
       <View style={styles.top}>
         <View>
@@ -44,16 +29,24 @@ export default function DeckView({ navigation }) {
             onPress={() =>
               navigation.navigate("CreateCard", { title: deck.title })
             }
-            text="Add"
+            text="Card"
           >
-            <AntDesign name="pluscircleo" color={theme.secondary} size={30} />
+            <AntDesign
+              name="pluscircleo"
+              color={theme.palette.secondary}
+              size={theme.spacing(3.5)}
+            />
           </IconButton>
 
           <IconButton
             onPress={() => navigation.navigate("Quiz", { title: deck.title })}
             text="Quiz"
           >
-            <AntDesign name="doubleright" color={theme.secondary} size={30} />
+            <AntDesign
+              name="doubleright"
+              color={theme.palette.secondary}
+              size={theme.spacing(3.5)}
+            />
           </IconButton>
         </View>
       </View>
@@ -71,15 +64,12 @@ export default function DeckView({ navigation }) {
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    // flexDirection: "column",
-    backgroundColor: "#fff"
-  },
   top: {
     flexDirection: "row",
     alignItems: "center",
-    justifyContent: "space-between"
+    justifyContent: "space-between",
+    backgroundColor: theme.palette.transparentBackground,
+    paddingHorizontal: theme.spacing(1)
   },
   options: {
     flexDirection: "row"

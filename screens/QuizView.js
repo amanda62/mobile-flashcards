@@ -1,26 +1,18 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { StyleSheet, View } from "react-native";
 import AppBar from "../components/AppBar";
 import Typography from "../components/Typography";
 import Card from "../components/Card";
-import { _getDeck } from "../_DATA";
 import IconButton from "../components/IconButton";
 import { Entypo } from "@expo/vector-icons";
-import { theme } from "../constants/Colors";
+import { theme } from "../constants/theme";
 import QuizCompleted from "../components/QuizCompleted";
+import { useDeck } from "../hooks";
 
 export default function QuizView({ navigation }) {
-  const [deck, setDeck] = useState();
+  const deck = useDeck(navigation);
   const [score, setScore] = useState({ points: 0, counter: 0 });
   // const randomCard = sample(deck.questions)
-
-  useEffect(() => {
-    (async () => {
-      const title = navigation.getParam("title");
-      const _deck = await _getDeck(title);
-      setDeck(_deck);
-    })();
-  }, [navigation]);
 
   if (!deck) {
     return null;
@@ -37,7 +29,7 @@ export default function QuizView({ navigation }) {
     : null;
 
   return (
-    <View style={styles.container}>
+    <View style={[styles.container, { backgroundColor: deck.color }]}>
       <AppBar
         navigate={() =>
           navigation.navigate("Deck", { title: navigation.getParam("title") })
@@ -77,18 +69,26 @@ export default function QuizView({ navigation }) {
             <IconButton
               text="Correct"
               onPress={scoreCorrect}
-              color={theme.primary}
+              color={theme.palette.primary}
               style={styles.button}
             >
-              <Entypo name="thumbs-up" color={theme.primary} size={75} />
+              <Entypo
+                name="thumbs-up"
+                color={theme.palette.primary}
+                size={theme.spacing(9)}
+              />
             </IconButton>
             <IconButton
               text="Incorrect"
               onPress={scoreIncorrect}
-              color={theme.primary}
+              color={theme.palette.primary}
               style={styles.button}
             >
-              <Entypo name="thumbs-down" color={theme.primary} size={75} />
+              <Entypo
+                name="thumbs-down"
+                color={theme.palette.primary}
+                size={theme.spacing(9)}
+              />
             </IconButton>
           </View>
         </View>
@@ -108,7 +108,7 @@ export default function QuizView({ navigation }) {
 
 const styles = StyleSheet.create({
   container: { flex: 1 },
-  card: { margin: 20 },
+  card: { margin: theme.spacing(2.5) },
   score: {
     flexDirection: "row",
     justifyContent: "space-evenly"
@@ -117,10 +117,10 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: "flex-end",
     flexDirection: "row",
-    paddingVertical: 35,
+    paddingVertical: theme.spacing(4.5),
     justifyContent: "space-around"
   },
   button: {
-    paddingHorizontal: 20
+    paddingHorizontal: theme.spacing(2.5)
   }
 });

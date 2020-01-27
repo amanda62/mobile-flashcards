@@ -1,13 +1,14 @@
-import * as WebBrowser from "expo-web-browser";
 import React, { useState } from "react";
-import { StyleSheet, Button, Text, TextInput, View } from "react-native";
+import { StyleSheet, Button, TextInput, View } from "react-native";
 import { _createDeck } from "../_DATA";
 import AppBar from "../components/AppBar";
 import Typography from "../components/Typography";
 import ColorPicker from "../components/ColorPicker";
-import { theme } from "../constants/Colors";
+import { theme } from "../constants/theme";
+import { useDecks } from "../hooks";
 
 export default function CreateDeckView({ navigation }) {
+  const decks = useDecks();
   const [newDeck, setNewDeck] = useState({
     title: "",
     color: theme.randomColor()
@@ -16,6 +17,11 @@ export default function CreateDeckView({ navigation }) {
   const updateTitle = title => setNewDeck({ ...newDeck, title });
   const updateColor = color => setNewDeck({ ...newDeck, color });
   const handleSubmit = () => {
+    if (
+      !newDeck.title.trim() ||
+      decks.some(deck => deck.title === newDeck.title)
+    )
+      return;
     _createDeck(newDeck);
     navigation.navigate("Deck", { title: newDeck.title });
   };

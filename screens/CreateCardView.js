@@ -1,11 +1,13 @@
-import React, { useState } from "react";
-import { StyleSheet, Button, View } from "react-native";
-import { TextInput } from "react-native-gesture-handler";
-import { _addCardToDeck, _getDeck } from "../_DATA";
 import AppBar from "../components/AppBar";
 import Typography from "../components/Typography";
+import React, { useState } from "react";
+import { StyleSheet, Button, View, TextInput } from "react-native";
+import { _addCardToDeck } from "../_DATA";
+import { theme } from "../constants/theme";
+import { useDeck } from "../hooks";
 
 export default function CreateCardView({ navigation }) {
+  const deck = useDeck(navigation);
   const [newCard, setNewCard] = useState({
     question: "",
     answer: ""
@@ -19,8 +21,10 @@ export default function CreateCardView({ navigation }) {
     navigation.navigate("Deck", { title });
   };
 
+  if (!deck) return null;
+
   return (
-    <View style={styles.container}>
+    <View style={[styles.container, { backgroundColor: deck.color }]}>
       <AppBar
         navigate={() =>
           navigation.navigate("Deck", { title: navigation.getParam("title") })
@@ -30,28 +34,20 @@ export default function CreateCardView({ navigation }) {
       </AppBar>
       <Typography>Create Card</Typography>
 
-      <View style={styles.card}>
-        <TextInput
-          onChangeText={handleChange("question")}
-          value={newCard.question}
-          multiline
-          numberOfLines={2}
-          placeholder=" Type question here"
-          placeholderTextColor="blue"
-          style={styles.question}
-        />
-      </View>
-      <View style={styles.card}>
-        <TextInput
-          onChangeText={handleChange("answer")}
-          value={newCard.answer}
-          multiline
-          numberOfLines={2}
-          placeholder=" Type answer here"
-          placeholderTextColor="red"
-          style={styles.answer}
-        />
-      </View>
+      {["question", "answer"].map(cardSide => (
+        <View style={styles.card}>
+          <TextInput
+            onChangeText={handleChange(cardSide)}
+            value={newCard[cardSide]}
+            multiline
+            numberOfLines={2}
+            placeholder={`Type ${cardSide} here`}
+            placeholderTextColor={theme.palette[cardSide]}
+            style={{ color: theme.palette[cardSide] }}
+          />
+        </View>
+      ))}
+
       <Button title="create" onPress={handleSubmit} />
     </View>
   );
@@ -69,12 +65,7 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     boxShadow: "0 4px 8px 0 rgba(0, 0, 0, 0.2)",
     borderRadius: 5,
-    padding: 15
-  },
-  question: {
-    color: "blue"
-  },
-  answer: {
-    color: "red"
+    padding: 15,
+    backgroundColor: theme.palette.background
   }
 });

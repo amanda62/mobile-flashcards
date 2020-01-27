@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { TouchableOpacity, Text, View, StyleSheet } from "react-native";
-import { theme } from "../constants/Colors";
+import { theme } from "../constants/theme";
 import { AntDesign } from "@expo/vector-icons";
 
 export default function Card({
@@ -35,12 +35,12 @@ export default function Card({
 
 export const styles = StyleSheet.create({
   card: {
-    margin: 5,
-    // textAlign: "center",
+    margin: theme.spacing(1),
     justifyContent: "center",
     boxShadow: "0 4px 8px 0 rgba(0, 0, 0, 0.2)",
-    borderRadius: 5,
-    padding: 15
+    borderRadius: theme.spacing(1),
+    padding: theme.spacing(2),
+    backgroundColor: theme.palette.background
   },
   flip: { alignSelf: "flex-end" }
 });

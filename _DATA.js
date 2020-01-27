@@ -1,4 +1,4 @@
-// import AsyncStorage from "@react-native-community/async-storage";
+// import { AsyncStorage } from "react-native";
 
 // storeData = async () => {
 //   try {
@@ -24,7 +24,7 @@ let lastQuizTime = null;
 let decks = [
   {
     title: "React",
-    color: "#66A182",
+    color: "#CBC5EA",
     questions: [
       {
         question: "What is React?",
@@ -38,7 +38,7 @@ let decks = [
   },
   {
     title: "JavaScript",
-    color: "#F18805",
+    color: "#96616B",
     questions: [
       {
         question: "What is a closure?",

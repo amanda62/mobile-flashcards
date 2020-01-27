@@ -1,40 +1,44 @@
-import * as WebBrowser from "expo-web-browser";
-import { MonoText } from "../components/StyledText";
-import Typography from "../components/Typography";
-import { theme } from "../constants/Colors";
-import React, { useEffect, useState } from "react";
-import { ScrollView, StyleSheet, Button, Text } from "react-native";
-import { _getDecks } from "../_DATA";
-import ZoomOpacity from "../components/ZoomOpacity";
+import React from "react";
 import AppBar from "../components/AppBar";
+import Typography from "../components/Typography";
+import ZoomOpacity from "../components/ZoomOpacity";
+import IconButton from "../components/IconButton";
+import { View, StyleSheet, Text } from "react-native";
+import { AntDesign } from "@expo/vector-icons";
+import { theme } from "../constants/theme";
+import { useDecks } from "../hooks";
 
 export default function HomeScreen({ navigation }) {
-  const [decks, setDecks] = useState([]);
-
-  useEffect(() => {
-    (async () => {
-      const _decks = await _getDecks();
-      setDecks(_decks);
-    })();
-  }, []);
+  const decks = useDecks();
 
   const goToDeck = title => navigation.navigate("Deck", { title });
   const greeting = () => {
     const time = new Date().getHours();
     if (time < 12) return "Good morning";
-    if (time < 16) return "Good afternoon";
-    if (time < 20) return "Good evening";
+    if (time < 17) return "Good afternoon";
+    if (time < 21) return "Good evening";
     return "Studyin' in the moonlight";
   };
 
   return (
-    <ScrollView>
+    <View>
       <AppBar back={false}>{greeting()}</AppBar>
-      <Typography>Let's study!</Typography>
-      <Button
-        title="Create New Deck"
-        onPress={() => navigation.navigate("CreateDeck")}
-      />
+
+      <View style={styles.top}>
+        <Typography>Let's learn!</Typography>
+        <IconButton
+          text="Deck"
+          onPress={() => navigation.navigate("CreateDeck")}
+          style={styles.topOption}
+        >
+          <AntDesign
+            name="pluscircleo"
+            color={theme.palette.appbar}
+            size={theme.spacing(3.5)}
+          />
+        </IconButton>
+      </View>
+
       {decks.map(deck => (
         <ZoomOpacity
           key={deck.title}
@@ -44,11 +48,17 @@ export default function HomeScreen({ navigation }) {
           <Text style={styles.text}>{deck.title}</Text>
         </ZoomOpacity>
       ))}
-    </ScrollView>
+    </View>
   );
 }
 
 const styles = StyleSheet.create({
+  top: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center"
+  },
+  topOption: {},
   text: {
     textAlign: "center"
   }
