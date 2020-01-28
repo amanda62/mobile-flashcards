@@ -35,6 +35,7 @@ const defaultDecks = [
 ];
 
 const DECKS_KEY = "mobile-flashcards/decks";
+const QUIZ_REMINDER_KEY = "mobile-flashcards/reminderScheduled";
 
 const getDecks = async () => {
   const deckStrings = await AsyncStorage.getItem(DECKS_KEY);
@@ -45,7 +46,19 @@ const getDecks = async () => {
 const setDecks = async decks =>
   await AsyncStorage.setItem(DECKS_KEY, JSON.stringify(decks));
 
+const getQuizReminder = async () =>
+  await AsyncStorage.getItem(QUIZ_REMINDER_KEY);
+
+const setQuizReminder = async value =>
+  await AsyncStorage.setItem(QUIZ_REMINDER_KEY, JSON.stringify(value));
+
+const clearQuizReminder = async () =>
+  await AsyncStorage.removeItem(QUIZ_REMINDER_KEY);
+
 export default {
   getDecks,
-  setDecks
+  setDecks,
+  getQuizReminder,
+  setQuizReminder,
+  clearQuizReminder
 };
