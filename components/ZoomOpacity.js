@@ -7,13 +7,13 @@ export default function DeckWrapper({ children, onPress, style }) {
   const [scale] = useState(new Animated.Value(1));
 
   const _startAnimation = () => {
-    const delay = 350;
+    const delay = 300;
     setAnimating(true);
     Animated.timing(scale, {
-      toValue: 1.6,
+      toValue: 1.25,
       duration: delay
     }).start();
-    return new Promise(resolve => setTimeout(resolve, delay + 200));
+    return new Promise(resolve => setTimeout(resolve, delay + 175));
   };
 
   const handlePress = async () => {
@@ -35,13 +35,16 @@ export default function DeckWrapper({ children, onPress, style }) {
 
 const styles = StyleSheet.create({
   deck: {
-    margin: "5px",
-    // textAlign: "center",
+    margin: theme.spacing(1),
     justifyContent: "center",
-    boxShadow: "0 4px 8px 0 rgba(0, 0, 0.2, 0.5)",
-    borderRadius: "5px",
-    height: "50px",
-    backgroundColor: theme.palette.colorOptions.blanchedAlmond
-    // `${theme.randomColor()}`
+    borderRadius: theme.spacing(1),
+    height: theme.spacing(9),
+    backgroundColor: theme.palette.colorOptions.blanchedAlmond,
+
+    shadowOffset: { width: 0, height: 4 },
+    shadowColor: "rgba(0, 0, .2, 0.5)",
+    shadowOpacity: 0.8,
+    shadowRadius: 1,
+    elevation: theme.spacing(1)
   }
 });

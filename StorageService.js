@@ -4,7 +4,7 @@ const defaultDecks = [
   {
     title: "React",
     color: "#CBC5EA",
-    questions: [
+    cards: [
       {
         question: "What is React?",
         answer: "A library for managing user interfaces"
@@ -18,7 +18,7 @@ const defaultDecks = [
   {
     title: "JavaScript",
     color: "#96616B",
-    questions: [
+    cards: [
       {
         question: "What is a closure?",
         answer:

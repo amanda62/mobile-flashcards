@@ -13,7 +13,7 @@ const styles = StyleSheet.create({
   title: {
     fontSize: theme.spacing(3),
     fontWeight: "bold",
-    marginTop: theme.spacing(0.5)
+    marginTop: theme.spacing(1)
   },
   subtitle: {
     fontSize: theme.spacing(2)
@@ -21,6 +21,6 @@ const styles = StyleSheet.create({
   deckTitle: {
     fontSize: theme.spacing(2),
     textAlign: "center",
-    fontWeight: 500
+    fontWeight: "500"
   }
 });

@@ -1,4 +1,4 @@
-import { _getDecks, _getDeck } from "./_DATA";
+import _DATA from "./_DATA";
 import { useState, useEffect } from "react";
 
 export function useDecks() {
@@ -6,7 +6,7 @@ export function useDecks() {
 
   useEffect(() => {
     (async () => {
-      const _decks = await _getDecks();
+      const _decks = await _DATA._getDecks();
       setDecks(_decks);
     })();
   }, []);
@@ -20,7 +20,7 @@ export function useDeck(navigation) {
   useEffect(() => {
     (async () => {
       const title = navigation.getParam("title");
-      const _deck = await _getDeck(title);
+      const _deck = await _DATA._getDeck(title);
       setDeck(_deck);
     })();
   }, [navigation]);

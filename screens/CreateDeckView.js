@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { StyleSheet, Button, TextInput, View } from "react-native";
-import { _createDeck } from "../_DATA";
+import _DATA from "../_DATA";
 import AppBar from "../components/AppBar";
 import Typography from "../components/Typography";
 import ColorPicker from "../components/ColorPicker";
@@ -16,13 +16,13 @@ export default function CreateDeckView({ navigation }) {
 
   const updateTitle = title => setNewDeck({ ...newDeck, title });
   const updateColor = color => setNewDeck({ ...newDeck, color });
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
     if (
       !newDeck.title.trim() ||
       decks.some(deck => deck.title === newDeck.title)
     )
       return;
-    _createDeck(newDeck);
+    await _DATA._createDeck(newDeck);
     navigation.navigate("Deck", { title: newDeck.title });
   };
 

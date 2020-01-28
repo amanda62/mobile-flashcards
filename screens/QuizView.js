@@ -1,32 +1,25 @@
 import React, { useState } from "react";
 import { StyleSheet, View } from "react-native";
+import { theme } from "../constants/theme";
+import { useDeck } from "../hooks";
 import AppBar from "../components/AppBar";
 import Typography from "../components/Typography";
 import Card from "../components/Card";
 import IconButton from "../components/IconButton";
-import { Entypo } from "@expo/vector-icons";
-import { theme } from "../constants/theme";
 import QuizCompleted from "../components/QuizCompleted";
-import { useDeck } from "../hooks";
 
 export default function QuizView({ navigation }) {
   const deck = useDeck(navigation);
   const [score, setScore] = useState({ points: 0, counter: 0 });
-  // const randomCard = sample(deck.questions)
-
-  if (!deck) {
-    return null;
-  }
+  // TODO: shuffle cards. const randomCard = sample(deck.cards)
+  if (!deck) return null;
 
   const scoreCorrect = () =>
     setScore({ points: score.points + 1, counter: score.counter + 1 });
   const scoreIncorrect = () =>
     setScore({ ...score, counter: score.counter + 1 });
   const restart = () => setScore({ points: 0, counter: 0 });
-
-  const nextCard = deck.questions[score.counter]
-    ? deck.questions[score.counter]
-    : null;
+  const nextCard = deck.cards[score.counter] ? deck.cards[score.counter] : null;
 
   return (
     <View style={[styles.container, { backgroundColor: deck.color }]}>
@@ -39,13 +32,13 @@ export default function QuizView({ navigation }) {
       </AppBar>
       <Typography>{deck.title}</Typography>
 
-      {!deck.questions.length && (
+      {!deck.cards.length && (
         <View>
           <Typography>No cards</Typography>
         </View>
       )}
 
-      {!!deck.questions.length && nextCard ? (
+      {!!deck.cards.length && nextCard ? (
         <View style={styles.container}>
           <>
             <View style={styles.score}>
@@ -53,7 +46,7 @@ export default function QuizView({ navigation }) {
                 {score.points} / {score.counter}
               </Typography>
               <Typography variant="subtitle">
-                {deck.questions.length - score.counter} left
+                {deck.cards.length - score.counter} left
               </Typography>
             </View>
 
@@ -67,29 +60,24 @@ export default function QuizView({ navigation }) {
 
           <View style={styles.bottomButtons}>
             <IconButton
+              library="Entypo"
+              name="thumbs-up"
               text="Correct"
               onPress={scoreCorrect}
               color={theme.palette.primary}
               style={styles.button}
-            >
-              <Entypo
-                name="thumbs-up"
-                color={theme.palette.primary}
-                size={theme.spacing(9)}
-              />
-            </IconButton>
+              size={theme.spacing(9)}
+            />
+
             <IconButton
+              library="Entypo"
+              name="thumbs-down"
               text="Incorrect"
               onPress={scoreIncorrect}
               color={theme.palette.primary}
               style={styles.button}
-            >
-              <Entypo
-                name="thumbs-down"
-                color={theme.palette.primary}
-                size={theme.spacing(9)}
-              />
-            </IconButton>
+              size={theme.spacing(9)}
+            />
           </View>
         </View>
       ) : (
@@ -114,7 +102,6 @@ const styles = StyleSheet.create({
     justifyContent: "space-evenly"
   },
   bottomButtons: {
-    flex: 1,
     alignItems: "flex-end",
     flexDirection: "row",
     paddingVertical: theme.spacing(4.5),

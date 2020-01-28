@@ -21,7 +21,6 @@ const paleCarmine = "#BB4430";
 const sinopiaOrange = "#CC3F0C";
 const kanaduSage = "#73877B";
 const ghostWhite = "#FBFBFF";
-// const isaBellineWhite = "#";
 const wageningenGreen = "#39B54A";
 const pearYellow = "#D8D52B";
 const soapLavender = "#CBC5EA";
@@ -48,7 +47,7 @@ export const theme = {
     appbar: darkImperialBlue,
     other: kanaduSage,
     background: ghostWhite,
-    transparentBackground: "rgba(251, 251, 255, 0.3)",
+    transparentBackground: "rgba(251, 251, 255, 0.4)",
     question: darkImperialBlue,
     answer: paleCarmine,
     colorOptions: {

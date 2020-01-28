@@ -3,8 +3,7 @@ import AppBar from "../components/AppBar";
 import Typography from "../components/Typography";
 import ZoomOpacity from "../components/ZoomOpacity";
 import IconButton from "../components/IconButton";
-import { View, StyleSheet, Text } from "react-native";
-import { AntDesign } from "@expo/vector-icons";
+import { View, StyleSheet } from "react-native";
 import { theme } from "../constants/theme";
 import { useDecks } from "../hooks";
 
@@ -26,17 +25,16 @@ export default function HomeScreen({ navigation }) {
 
       <View style={styles.top}>
         <Typography>Let's learn!</Typography>
+
         <IconButton
-          text="Deck"
           onPress={() => navigation.navigate("CreateDeck")}
+          library="AntDesign"
+          name="pluscircleo"
+          text="Deck"
+          color={theme.palette.appbar}
+          size={theme.spacing(3.5)}
           style={styles.topOption}
-        >
-          <AntDesign
-            name="pluscircleo"
-            color={theme.palette.appbar}
-            size={theme.spacing(3.5)}
-          />
-        </IconButton>
+        />
       </View>
 
       {decks.map(deck => (
@@ -45,7 +43,12 @@ export default function HomeScreen({ navigation }) {
           onPress={() => goToDeck(deck.title)}
           style={{ backgroundColor: deck.color }}
         >
-          <Typography variant="deckTitle">{deck.title}</Typography>
+          <View style={styles.deck}>
+            <Typography variant="deckTitle">{deck.title}</Typography>
+            <Typography variant="subTitle">
+              {deck.cards.length} cards
+            </Typography>
+          </View>
         </ZoomOpacity>
       ))}
     </View>
@@ -57,5 +60,9 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "center"
+  },
+  deck: {
+    flexDirection: "row",
+    justifyContent: "center"
   }
 });

@@ -37,10 +37,15 @@ export const styles = StyleSheet.create({
   card: {
     margin: theme.spacing(1),
     justifyContent: "center",
-    boxShadow: "0 4px 8px 0 rgba(0, 0, 0, 0.2)",
     borderRadius: theme.spacing(1),
     padding: theme.spacing(2),
-    backgroundColor: theme.palette.background
+    backgroundColor: theme.palette.background,
+
+    shadowOffset: { width: 0, height: 4 },
+    shadowColor: "rgba(0, 0, 0, 0.2)",
+    shadowOpacity: 0.8,
+    shadowRadius: 1,
+    elevation: theme.spacing(1)
   },
   flip: { alignSelf: "flex-end" }
 });

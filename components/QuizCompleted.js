@@ -1,16 +1,14 @@
-// import React, { useEffect } from "react";
-import React from "react";
+import React, { useEffect } from "react";
 import { View } from "react-native";
 import Typography from "./Typography";
 import IconButton from "./IconButton";
 import { theme } from "../constants/theme";
-import { Entypo } from "@expo/vector-icons";
-// import { _setLastQuizTime } from "../_DATA";
+import NotificationService from "../NotificationService";
 
 export default function QuizCompleted({ score, styles, restart }) {
-  // useEffect(() => {
-  //   _setLastQuizTime();
-  // }, []);
+  useEffect(() => {
+    NotificationService.setQuizReminderNotification({ quizCompleted: true });
+  }, []);
 
   return (
     <View style={styles.container}>
@@ -23,13 +21,14 @@ export default function QuizCompleted({ score, styles, restart }) {
       </>
       <View style={styles.bottomButtons}>
         <IconButton
-          text="Restart"
           onPress={restart}
-          color={theme.palette.primary}
+          library="Entypo"
+          name="new"
+          text="Restart"
+          color={theme.palette.appbar}
           style={styles.button}
-        >
-          <Entypo name="new" color={theme.palette.primary} size={75} />
-        </IconButton>
+          size={theme.spacing(9)}
+        />
       </View>
     </View>
   );
